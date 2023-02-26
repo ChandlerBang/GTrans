@@ -1,0 +1,167 @@
+WARNING:root:The OGB package is out of date. Your version is 1.3.0, while the latest version is 1.3.4.
+Using backend: pytorch
+Namespace(K=3, T=1, beta=1.0, cached=False, cpu=False, data_dir='../../data', dataset='elliptic', device=3, directed=False, display_step=100, dropout=0.0, epochs=200, gat_heads=2, gnn='sage', gpr_alpha=0.1, hidden_channels=32, lp_alpha=0.1, lr=0.0002, lr_a=0.0001, method='eerm', no_bn=False, num_layers=5, num_sample=5, rocauc=False, runs=5, sub_dataset='', weight_decay=0.0)
+Train num nodes 6048 | num classes 2 | num node feats 165
+Val num nodes 2047 | num classes 2 | num node feats 165
+Test 0 num nodes 3385 | num classes 2 | num node feats 165
+Test 1 num nodes 1976 | num classes 2 | num node feats 165
+Test 2 num nodes 3506 | num classes 2 | num node feats 165
+Test 3 num nodes 4291 | num classes 2 | num node feats 165
+Test 4 num nodes 3537 | num classes 2 | num node feats 165
+Test 5 num nodes 5894 | num classes 2 | num node feats 165
+Test 6 num nodes 4165 | num classes 2 | num node feats 165
+Test 7 num nodes 4592 | num classes 2 | num node feats 165
+Test 8 num nodes 2314 | num classes 2 | num node feats 165
+Test 9 num nodes 2523 | num classes 2 | num node feats 165
+Test 10 num nodes 1089 | num classes 2 | num node feats 165
+Test 11 num nodes 1653 | num classes 2 | num node feats 165
+Test 12 num nodes 4275 | num classes 2 | num node feats 165
+Test 13 num nodes 2483 | num classes 2 | num node feats 165
+Test 14 num nodes 2816 | num classes 2 | num node feats 165
+Test 15 num nodes 4525 | num classes 2 | num node feats 165
+Test 16 num nodes 3151 | num classes 2 | num node feats 165
+Test 17 num nodes 2486 | num classes 2 | num node feats 165
+Test 18 num nodes 5507 | num classes 2 | num node feats 165
+Test 19 num nodes 6393 | num classes 2 | num node feats 165
+Test 20 num nodes 3306 | num classes 2 | num node feats 165
+Test 21 num nodes 2891 | num classes 2 | num node feats 165
+Test 22 num nodes 2760 | num classes 2 | num node feats 165
+Test 23 num nodes 4481 | num classes 2 | num node feats 165
+Test 24 num nodes 5342 | num classes 2 | num node feats 165
+Test 25 num nodes 7140 | num classes 2 | num node feats 165
+Test 26 num nodes 5063 | num classes 2 | num node feats 165
+Test 27 num nodes 4975 | num classes 2 | num node feats 165
+Test 28 num nodes 5598 | num classes 2 | num node feats 165
+Test 29 num nodes 3519 | num classes 2 | num node feats 165
+Test 30 num nodes 5121 | num classes 2 | num node feats 165
+Test 31 num nodes 2954 | num classes 2 | num node feats 165
+Test 32 num nodes 2454 | num classes 2 | num node feats 165
+MODEL: Model(
+  (gnn): SAGE(
+    (convs): ModuleList(
+      (0): SAGEConv(165, 32)
+      (1): SAGEConv(32, 32)
+      (2): SAGEConv(32, 32)
+      (3): SAGEConv(32, 32)
+      (4): SAGEConv(32, 2)
+    )
+    (bns): ModuleList(
+      (0): BatchNorm1d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (1): BatchNorm1d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): BatchNorm1d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (3): BatchNorm1d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+  (gl): ModuleList(
+    (0): Graph_Editer()
+    (1): Graph_Editer()
+    (2): Graph_Editer()
+    (3): Graph_Editer()
+    (4): Graph_Editer()
+  )
+)
+DATASET: elliptic
+Epoch: 00, Mean Loss: 0.6371, Var Loss: 0.0002, Train: 44.07%, Valid: 49.07%, 
+Test: 44.74% Test: 47.46% Test: 44.22% Test: 47.84% Test: 42.56% Test: 42.65% Test: 45.72% Test: 41.62% Test: 41.03% 
+Epoch: 100, Mean Loss: 0.2941, Var Loss: 0.0012, Train: 68.76%, Valid: 71.70%, 
+Test: 60.24% Test: 64.73% Test: 59.00% Test: 64.04% Test: 62.28% Test: 60.33% Test: 58.29% Test: 55.90% Test: 51.35% 
+Run 01:
+Highest Train: 83.21
+Highest Valid: 87.77
+  Final Train: 83.21
+   Final Test 0: 67.25
+   Final Test 1: 68.93
+   Final Test 2: 65.04
+   Final Test 3: 69.86
+   Final Test 4: 70.71
+   Final Test 5: 68.59
+   Final Test 6: 69.16
+   Final Test 7: 59.00
+   Final Test 8: 49.53
+Flatten Test: 66.48
+Epoch: 00, Mean Loss: 0.8671, Var Loss: 0.0005, Train: 22.57%, Valid: 31.93%, 
+Test: 22.68% Test: 28.93% Test: 36.68% Test: 35.38% Test: 24.15% Test: 21.46% Test: 22.68% Test: 21.48% Test: 23.50% 
+Epoch: 100, Mean Loss: 0.3510, Var Loss: 0.0002, Train: 76.84%, Valid: 78.60%, 
+Test: 60.14% Test: 68.13% Test: 66.94% Test: 68.44% Test: 62.81% Test: 57.33% Test: 50.97% Test: 52.37% Test: 48.13% 
+Run 02:
+Highest Train: 91.20
+Highest Valid: 89.91
+  Final Train: 91.15
+   Final Test 0: 65.47
+   Final Test 1: 69.09
+   Final Test 2: 69.54
+   Final Test 3: 72.21
+   Final Test 4: 62.56
+   Final Test 5: 63.14
+   Final Test 6: 60.58
+   Final Test 7: 55.39
+   Final Test 8: 48.71
+Flatten Test: 64.82
+Epoch: 00, Mean Loss: 0.7130, Var Loss: 0.0003, Train: 49.44%, Valid: 42.93%, 
+Test: 45.36% Test: 47.47% Test: 37.58% Test: 43.02% Test: 41.74% Test: 37.27% Test: 37.39% Test: 36.80% Test: 36.33% 
+Epoch: 100, Mean Loss: 0.3194, Var Loss: 0.0005, Train: 80.65%, Valid: 76.01%, 
+Test: 65.14% Test: 64.65% Test: 60.68% Test: 60.89% Test: 53.68% Test: 53.15% Test: 54.26% Test: 51.30% Test: 47.63% 
+Run 03:
+Highest Train: 90.77
+Highest Valid: 91.04
+  Final Train: 90.77
+   Final Test 0: 70.55
+   Final Test 1: 72.40
+   Final Test 2: 67.04
+   Final Test 3: 65.70
+   Final Test 4: 68.65
+   Final Test 5: 65.63
+   Final Test 6: 65.00
+   Final Test 7: 57.00
+   Final Test 8: 48.31
+Flatten Test: 66.53
+Epoch: 00, Mean Loss: 0.7928, Var Loss: 0.0002, Train: 38.03%, Valid: 38.45%, 
+Test: 34.60% Test: 37.89% Test: 24.56% Test: 43.06% Test: 31.90% Test: 23.78% Test: 27.85% Test: 17.41% Test: 21.83% 
+Epoch: 100, Mean Loss: 0.3774, Var Loss: 0.0004, Train: 76.17%, Valid: 73.32%, 
+Test: 64.73% Test: 70.25% Test: 67.04% Test: 64.80% Test: 64.53% Test: 65.23% Test: 59.95% Test: 54.37% Test: 50.15% 
+Run 04:
+Highest Train: 84.88
+Highest Valid: 84.67
+  Final Train: 84.88
+   Final Test 0: 64.52
+   Final Test 1: 74.53
+   Final Test 2: 71.65
+   Final Test 3: 68.52
+   Final Test 4: 68.20
+   Final Test 5: 70.48
+   Final Test 6: 67.92
+   Final Test 7: 57.59
+   Final Test 8: 47.96
+Flatten Test: 67.58
+Epoch: 00, Mean Loss: 0.8500, Var Loss: 0.0006, Train: 20.56%, Valid: 29.53%, 
+Test: 26.51% Test: 25.28% Test: 28.69% Test: 31.11% Test: 28.33% Test: 23.55% Test: 23.79% Test: 18.18% Test: 18.20% 
+Epoch: 100, Mean Loss: 0.3562, Var Loss: 0.0005, Train: 77.98%, Valid: 74.07%, 
+Test: 60.98% Test: 64.96% Test: 63.00% Test: 61.13% Test: 61.19% Test: 57.58% Test: 56.80% Test: 54.41% Test: 48.80% 
+Run 05:
+Highest Train: 88.21
+Highest Valid: 87.62
+  Final Train: 88.21
+   Final Test 0: 61.53
+   Final Test 1: 58.92
+   Final Test 2: 57.18
+   Final Test 3: 63.10
+   Final Test 4: 65.74
+   Final Test 5: 63.69
+   Final Test 6: 64.50
+   Final Test 7: 61.04
+   Final Test 8: 48.47
+Flatten Test: 62.31
+All runs:
+Highest Train: 87.65 ± 3.54
+Highest Valid: 88.20 ± 2.45
+  Final Train: 87.64 ± 3.53
+   Final Test 0: 65.86 ± 3.34
+   Final Test 1: 68.78 ± 5.99
+   Final Test 2: 66.09 ± 5.57
+   Final Test 3: 67.88 ± 3.56
+   Final Test 4: 67.17 ± 3.12
+   Final Test 5: 66.31 ± 3.16
+   Final Test 6: 65.43 ± 3.34
+   Final Test 7: 58.01 ± 2.13
+   Final Test 8: 48.60 ± 0.59
+Saving results to ./results/elliptic.csv
