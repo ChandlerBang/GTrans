@@ -3,11 +3,14 @@
 
 Implementation of "Empowering Graph Neural Networks with Test-Time Graph Transformation"
 
+**Key words**: out-of-distribution generalization, distribution shift, adversarial robustness, graph neural networks
+
 Abstract
 ----
-As powerful tools for representation learning on graphs, graph neural networks (GNNs) have facilitated various applications from drug discovery to recommender systems. Nevertheless, the effectiveness of GNNs is immensely challenged by issues related to data quality, such as distribution shift, abnormal features and adversarial attacks. Recent efforts have been made on tackling these issues from a modeling perspective which requires additional cost of changing model architectures or re-training model parameters. In this work, we provide a data-centric view to tackle these issues and propose a graph transformation framework named GTRANS which adapts and refines graph data at test time to achieve better performance. We provide theoretical analysis on the design of the framework and discuss why adapting graph data works better than adapting the model. Extensive experiments have demonstrated the effectiveness of GTRANS on three distinct scenarios for eight benchmark datasets where suboptimal data is presented. Remarkably, GTRANS performs the best in most cases with improvements up to 2.8%, 8.2% and 3.8% over the best baselines on three experimental settings.
+As powerful tools for representation learning on graphs, graph neural networks (GNNs) have facilitated various applications from drug discovery to recommender systems. Nevertheless, the effectiveness of GNNs is immensely challenged by issues related to data quality, such as distribution shift, abnormal features and adversarial attacks. Recent efforts have been made on tackling these issues from a modeling perspective which requires additional cost of changing model architectures or re-training model parameters. In this work, we provide a data-centric view to tackle these issues and propose a graph transformation framework named GTRANS which adapts and refines graph data at test time to achieve better performance. 
 
 
+<div align=center><img src="https://github.com/ChandlerBang/GTrans/blob/main/GTrans.png" width="800"/></div>
 
 ## Requirements
 We used Python 3.7.10. For the Python packages, please see [requirements.txt]().
@@ -98,7 +101,8 @@ Run abnormal setting:
 ```
 python train_both_abn.py  --model=GCN --debug=1 --gpu_id=0 --dataset=cora --noise_feature=0.2
 ```
-Before we run the adversarial attack setting, please first download the attacked graphs from the [[Google Drive link]](https://drive.google.com/file/d/1CVyO8v6NQcuFOkyOHtyXxvnHM5eNGIwU/view?usp=share_link). Place the downloaded zip file under the `robustness/saved` folder. ```
+Before we run the adversarial attack setting, please first download the attacked graphs from the [[Google Drive link]](https://drive.google.com/file/d/1CVyO8v6NQcuFOkyOHtyXxvnHM5eNGIwU/view?usp=share_link). Place the downloaded zip file under the `robustness/saved` folder. 
+```
 cd saved; unzip attacked_graphs.zip; cd ..
 ```
 You may also skip the above steps as our code also generate the attacks automatically.
