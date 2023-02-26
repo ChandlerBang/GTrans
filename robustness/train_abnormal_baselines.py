@@ -2,7 +2,6 @@
 import argparse
 import numpy as np
 from deeprobust.graph.defense_pyg import AirGNN, GCN, APPNP, GAT, SAGE, GPRGNN
-from gtransform_feat import FeatAgent
 from utils import *
 import torch
 import random
@@ -22,11 +21,9 @@ parser.add_argument('--normalize_features', type=bool, default=True)
 parser.add_argument('--seed', type=int, default=0, help='Random seed.')
 parser.add_argument('--nlayers', type=int, default=2)
 parser.add_argument('--model', type=str, default='GCN')
-parser.add_argument('--ptb_rate', type=float, default=-1)
 parser.add_argument('--debug', type=float, default=0)
 parser.add_argument('--dropout', type=float, default=0.5)
 parser.add_argument('--noise_feature', type=float, default=0.0)
-parser.add_argument('--noise_structure', type=float, default=0.0)
 parser.add_argument('--tune', type=float, default=0)
 parser.add_argument('--lambda_', type=float, default=0)
 args = parser.parse_args()
@@ -38,11 +35,7 @@ def reset_args(args):
     if args.dataset == 'arxiv':
         args.nlayers = 3; args.hidden=256; args.with_bn=True
     elif args.dataset in ['cora', 'citeseer', 'pubmed']:
-        # args.nlayers = 2; args.hidden=256
         args.nlayers = 2; args.hidden=64
-    elif args.dataset in ['cs', 'photo', 'physics', 'computers']:
-        args.nlayers = 2; args.hidden=16; args.weight_decay=0; train_iters=400;
-        alpha = 0.1
     else:
         raise NotImplementedError
 
@@ -123,8 +116,7 @@ model = pretrain_model()
 if args.noise_feature > 0:
     feat_noise, noisy_nodes = add_feature_noise_test(data,
             args.noise_feature, args.seed)
-if args.noise_structure > 0:
-    add_structure_noise(data, args.noise_structure)
+
 
 output = model.predict()
 labels = data.y.to(device)

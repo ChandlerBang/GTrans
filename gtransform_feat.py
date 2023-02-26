@@ -28,18 +28,6 @@ class FeatAgent:
 
     def learn_graph(self, data):
         args = self.args
-        if args.noise_feature > 0:
-            add_feature_noise(data, args.noise_feature)
-        if args.noise_structure > 0:
-            add_structure_noise(data, args.noise_structure)
-        if args.noise_feature > 0 or args.noise_structure > 0:
-            feat, labels = data.graph['node_feat'].to(self.device), data.label.to(self.device) #.squeeze()
-            edge_index = data.graph['edge_index'].to(self.device)
-            output = self.model.predict(feat, edge_index)
-            print("===Test set results on noisy graph:")
-            self.evaluate_single(self.model, output, labels, data)
-            # self.get_perf(output, labels, data.test_mask)
-
         args = self.args
         self.data = data
         nnodes = data.graph['node_feat'].shape[0]
