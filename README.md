@@ -112,4 +112,15 @@ Run adversarial attack:
 python train_both_attack.py --dataset arxiv --model=GCN --seed=0 --ptb_rate=0.1 --debug=1 --gpu_id=0
 ```
 
-
+## Cite
+If you find this repo to be useful, please cite our paper. Thank you!
+```
+@inproceedings{
+jin2023empowering,
+title={Empowering Graph Representation Learning with Test-Time Graph Transformation},
+author={Wei Jin and Tong Zhao and Jiayuan Ding and Yozen Liu and Jiliang Tang and Neil Shah},
+booktitle={The Eleventh International Conference on Learning Representations },
+year={2023},
+url={https://openreview.net/forum?id=Lnxl5pr018}
+}
+```
