@@ -1,7 +1,7 @@
 # GTrans
 
 
-Implementation of "Empowering Graph Neural Networks with Test-Time Graph Transformation"
+[ICLR'23] Implementation of ["Empowering Graph Neural Networks with Test-Time Graph Transformation"](https://openreview.net/pdf?id=Lnxl5pr018)
 
 **Key words**: out-of-distribution generalization, distribution shift, adversarial robustness, graph neural networks
 
