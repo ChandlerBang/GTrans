@@ -15,7 +15,7 @@ As powerful tools for representation learning on graphs, graph neural networks (
 ## Requirements
 We used Python 3.7.10. For the Python packages, please see [requirements.txt]().
 ```
-deeprobust==0.2.7
+deeprobust==0.2.8
 dgl==0.9.1
 dgl_cu102==0.6.1
 GCL==0.6.11
