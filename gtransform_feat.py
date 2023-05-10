@@ -35,12 +35,10 @@ class FeatAgent:
         #         bn.track_running_stats = False
         #         bn.running_mean = None
         #         bn.running_var = None
-        # try:
-        #     model = deepcopy(self.model)
-        # except:
-        #     print('Warning: deepcopy failed... Retraining/Reloading the model')
+        if not hasattr(self, 'model_pre'):
+            self.model_pre = self.model
+        self.model = deepcopy(self.model_pre)
         assert args.debug == 1 or args.debug == 2
-        self.model = self.pretrain_model(verbose=False)
         model = self.model
 
         if args.tent:
