@@ -32,6 +32,8 @@ parser.add_argument('--loop_adj', type=int, default=1, help='#loops for optimizi
 parser.add_argument('--loop_feat', type=int, default=4, help='#loops for optimizing features')
 parser.add_argument('--test_val', type=int, default=0, help='set to 1 to evaluate performance on validation data')
 parser.add_argument('--tune', type=int, default=1)
+parser.add_argument('--finetune', type=int, default=0, help='whether to finetune the model')
+parser.add_argument('--tent', type=int, default=0, help='use the Tent for finetuning (need to set finetune=1)')
 parser.add_argument('--strategy', type=str, default='dropedge')
 args = parser.parse_args()
 
@@ -51,7 +53,6 @@ print(args)
 
 from utils import get_gpu_memory_map
 mem_st = get_gpu_memory_map()
-
 
 if args.ood:
     path = 'GraphOOD-EERM/'
@@ -95,9 +96,6 @@ torch.cuda.manual_seed(args.seed)
 res = []
 agent = GraphAgent(data, args)
 
-# gpu_mem = get_gpu_memory_map()
-# print('Stage 0: Mem used: %s MB'% (int(gpu_mem[args.gpu_id])-int(mem_st[args.gpu_id])))
-
 if args.test_val:
     print('using validation as test...')
     data[-1] = data[-2]
@@ -105,7 +103,10 @@ if args.test_val:
         data[-1] = [data[-1]]
     y_te, out_te = [], []
     for ix, test_data in enumerate(data[-1]):
-        acc, output, labels = agent.learn_graph(test_data)
+        if args.finetune:
+            acc, output, labels = agent.finetune(test_data)
+        else:
+            acc, output, labels = agent.learn_graph(test_data)
         res.append(acc)
         y_te.append(labels)
         out_te.append(output)
@@ -120,23 +121,26 @@ else:
     if args.dataset != 'elliptic':
         y_te, out_te = [], []
         for ix, test_data in enumerate(data[-1]):
-            acc, output, labels = agent.learn_graph(test_data)
+            if args.finetune:
+                acc, output, labels = agent.finetune(test_data)
+            else:
+                acc, output, labels = agent.learn_graph(test_data)
             res.append(acc)
             y_te.append(labels)
             out_te.append(output)
 
             if args.debug == 2:
                 break
-            # from data_utils import get_gpu_memory_map
-            # gpu_mem = get_gpu_memory_map()
-            # print('Mem used: %s MB'% (int(gpu_mem[args.gpu_id])-int(mem_st[args.gpu_id])))
         acc_te = agent.model.eval_func(torch.cat(y_te, dim=0), torch.cat(out_te, dim=0))
 
     else:
         y_te_all, out_te_all = [], []
         y_te, out_te = [], []
         for ii, test_data in enumerate(data[-1]):
-            acc, output, labels = agent.learn_graph(test_data)
+            if args.finetune:
+                acc, output, labels = agent.finetune(test_data)
+            else:
+                acc, output, labels = agent.learn_graph(test_data)
             y_te.append(labels)
             out_te.append(output)
 
@@ -150,9 +154,6 @@ else:
                 if args.debug==2:
                     break
 
-            # from data_utils import get_gpu_memory_map
-            # gpu_mem = get_gpu_memory_map()
-            # print('Mem used: %s MB'% (int(gpu_mem[args.gpu_id])-int(mem_st[args.gpu_id])))
         acc_te = agent.model.eval_func(torch.cat(y_te_all, dim=0), torch.cat(out_te_all, dim=0))
 
     print('Results on test sets:', res)

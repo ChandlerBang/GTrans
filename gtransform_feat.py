@@ -26,6 +26,63 @@ class FeatAgent:
     def initialize_as_ori_feat(self, feat):
         self.delta_feat.data.copy_(feat)
 
+    def finetune(self, data):
+        args = self.args
+        print('Finetuning ...')
+        # TODO: the following lines can greatly affect the performance of all methods
+        # if hasattr(self.model, 'bns'):
+        #     for bn in self.model.bns:
+        #         bn.track_running_stats = False
+        #         bn.running_mean = None
+        #         bn.running_var = None
+        # try:
+        #     model = deepcopy(self.model)
+        # except:
+        #     print('Warning: deepcopy failed... Retraining/Reloading the model')
+        assert args.debug == 1 or args.debug == 2
+        self.model = self.pretrain_model(verbose=False)
+        model = self.model
+
+        if args.tent:
+            for param in model.parameters():
+                param.requires_grad = False
+            for param in model.bns.parameters():
+                param.requires_grad = True
+            args.loss = 'entropy'
+            args.lr = args.lr_feat
+            optimizer = optim.Adam(model.bns.parameters(), lr=args.lr, weight_decay=0)
+        else:
+            for param in model.parameters():
+                param.requires_grad = True
+            args.lr = args.lr_feat
+            optimizer = optim.Adam(model.parameters(), lr=args.lr, weight_decay=0)
+            # args.lr =0.001; args.epochs=10
+
+        # model.lr=0.1
+        edge_index = data.graph['edge_index'].to(self.device)
+        feat, labels = data.graph['node_feat'].to(self.device), data.label.to(self.device) #.squeeze()
+
+        self.feat, self.data = feat, data
+
+        model.eval()
+        for i in range(args.epochs):
+            optimizer.zero_grad()
+            loss = self.test_time_loss(model, feat, edge_index)
+            loss.backward()
+            optimizer.step()
+            if i == 0:
+                print(f'Epoch {i}: {loss}')
+
+        output = model.predict(feat, edge_index)
+        loss = self.test_time_loss(model, feat, edge_index)
+        print(f'Epoch {i}: {loss}')
+        print('Test:')
+
+        if args.dataset == 'elliptic':
+            return self.evaluate_single(model, output, labels, data), output[data.mask], labels[data.mask]
+        else:
+            return self.evaluate_single(model, output, labels, data), output, labels
+
     def learn_graph(self, data):
         args = self.args
         args = self.args
