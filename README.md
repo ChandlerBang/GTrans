@@ -5,14 +5,6 @@
 
 **Key words**: out-of-distribution generalization, distribution shift, adversarial robustness, graph neural networks
 
-Note
-----
-Although in the original paper we did not provide the results on large-scale graphs, we encourage researchers to test your model on attacked large graphs. DeepRobust has provided APIs to perform scalable attacks and you can find an example in [test_prbcd.py](https://github.com/DSE-MSU/DeepRobust/blob/master/examples/graph/test_prbcd.py). 
-
-Another example is in our [ICLR'23 code](https://github.com/ChandlerBang/GTrans#robustness) where we tested our model robustness on the large attacked ogb-arxiv graph. 
-
-Please feel free to open an issue if you have any questions :)
-
 Abstract
 ----
 As powerful tools for representation learning on graphs, graph neural networks (GNNs) have facilitated various applications from drug discovery to recommender systems. Nevertheless, the effectiveness of GNNs is immensely challenged by issues related to data quality, such as distribution shift, abnormal features and adversarial attacks. Recent efforts have been made on tackling these issues from a modeling perspective which requires additional cost of changing model architectures or re-training model parameters. In this work, we provide a data-centric view to tackle these issues and propose a graph transformation framework named GTRANS which adapts and refines graph data at test time to achieve better performance. 
