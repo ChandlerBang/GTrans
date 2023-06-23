@@ -59,7 +59,8 @@ project
 │   
 └───robustness
 ```
-
+## Note
+We note that the GCN used in the experiments of EERM does not normalize the adjacency matrix according to its open-source code. Here we normalize the adjacency matrix to make it consistent with the original GCN.
 
 ## Run our code
 Simply run the following command to get started.
@@ -88,6 +89,8 @@ Note that `LC` is the contrastive loss used in our work and by default the graph
 
 ## Hyper-parameter tuning suggestion
 Test-time graph transformation requires careful tuning skills. A general suggestion would be to choose small learning rate and small training epochs. If you are using GTrans for other datasets, please first tune the hyperparameters based on the validation set, i.e., `--test_val=1 --tune=1`.
+
+
 
 
 ## Robustness
